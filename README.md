@@ -1,706 +1,102 @@
-# SAHARA
+# 🚨 Sahara — Offline-First Emergency & Disaster Response PWA
 
-We are building a disaster-resilience application called ResQ.
+[![TypeScript](https://img.shields.io/badge/TypeScript-98.5%25-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-18+-61DAFB?logo=react)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-Bundler-646CFF?logo=vite)](https://vitejs.dev/)
+[![PWA](https://img.shields.io/badge/PWA-Offline--Ready-5A0FC8?logo=pwa)](https://web.dev/progressive-web-apps/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-For this step, build ONLY PHASE 1.
+> Built for rapid crisis management during network grid collapses, floods, and natural disasters.
 
-Do NOT build SOS forms, shelters, maps, responder dashboards, community alerts, relay networking, emergency guidance, family tracking, authentication, backend integrations, Supabase, Firebase, or APIs yet.
+**Sahara** is a lightweight, mobile-first Progressive Web Application (PWA) designed to operate under zero-connectivity conditions. When telecommunication towers fail, Sahara empowers citizens and relief teams with pre-cached vector maps, deterministic safe-zone routing, emergency audio guides, and localized SOS broadcasts[cite: 1].
 
-The goal of Phase 1 is to create an extremely stable foundation and the main Citizen Disaster Mode home screen.
+---
 
-==================================================
+## ⚡ The Problem Sahara Solves
 
-PRODUCT
+During severe crises (such as flash floods or earthquakes), cellular infrastructure often goes down within hours. Civilians lose access to online navigation, shelter directories, and communication channels.
 
-==================================================
+**Sahara** addresses this single point of failure by decoupling critical emergency services from internet connectivity[cite: 1]:
+- Cached emergency maps and shelter locations[cite: 1].
+- Browser-based routing with zero remote API dependencies[cite: 1].
+- Automated location capture and resilient SOS packet queuing[cite: 1].
 
-Name:
+---
 
-ResQ
+## 🌟 Key Features
 
-Tagline:
+* **🗺️ Zero-Data Safe Routing:** In-browser navigation using pre-loaded OpenStreetMap (`.osm`) extracts, enabling accurate pathfinding to safety when cellular data is unavailable[cite: 1].
+* **🆘 One-Tap SOS Broadcast:** Immediate distress signal creation with GPS coordinates, critical needs tagging (medical, rescue, food/water), and persistent local state[cite: 1].
+* **🏠 Real-Time Relief Shelter Locator:** Filterable directory of designated rescue shelters showing capacity, available resources, and direct navigation paths[cite: 1].
+* **👨‍👩‍👧 Family Safety Status:** Localized check-ins to monitor family members' last-known locations and safety statuses during evacuations[cite: 1].
+* **🔊 Multilingual Emergency Guides:** Survival workflows and audio instructions in Hindi and English for accessible, hands-free guidance under stress[cite: 1].
+* **📦 Resilient PWA Architecture:** Zero mandatory store download; installs instantly to mobile home screens and aggressively caches assets via Service Workers[cite: 1].
 
-People. Families. Safer Together.
+---
 
-Core principle:
+## 🛠️ Tech Stack
 
-“When the network disappears, ResQ doesn’t.”
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) |
+| **Build & Tooling** | [Vite](https://vitejs.dev/)[cite: 1] |
+| **Routing** | [TanStack Router](https://tanstack.com/router)[cite: 1] |
+| **Styling & Components**| [Tailwind CSS](https://tailwindcss.com/), Radix UI Primitives, Lucide Icons[cite: 1] |
+| **Offline & Storage** | Service Worker Cache API, IndexedDB / LocalStorage, OpenStreetMap XML[cite: 1] |
+| **Audio & Speech** | Web Speech API & pre-bundled local emergency audio tracks[cite: 1] |
 
-ResQ is an offline-first emergency application intended to remain useful when internet and cellular infrastructure fail.
+---
 
-For now we are creating only the app shell, citizen home screen, offline-state simulation, and local persistence.
+## 🚀 Getting Started
 
-==================================================
+### Prerequisites
 
-TECHNICAL CONSTRAINTS
+Make sure you have [Node.js](https://nodejs.org/) (v18+) installed:
 
-==================================================
+```bash
 
-Use the existing Lovable React + TypeScript environment.
+Installation & Run
+Clone the repository:
 
-Use:
+Bash
+git clone [https://github.com/aadityaDobhal/sahara.git](https://github.com/aadityaDobhal/sahara.git)
+cd sahara
+Install project dependencies:
 
-- React
+Bash
+npm install
+Start the local development server:
 
-- TypeScript
-
-- Tailwind
-
-- Lucide icons if already available
-
-- localStorage
-
-- simple application state
-
-DO NOT use:
-
-- Supabase
-
-- Firebase
-
-- external APIs
-
-- authentication
-
-- Google Maps
-
-- API keys
-
-- additional heavy dependencies
-
-- external data services
-
-The project must run immediately after generation.
-
-Do not change package configuration unless absolutely necessary.
-
-Do not install unnecessary libraries.
-
-==================================================
-
-MOBILE-FIRST REQUIREMENT
-
-==================================================
-
-Design primarily for a smartphone.
-
-The UI should look like a real mobile emergency application, not a desktop website squeezed onto a phone.
-
-It must still respond properly on desktop.
-
-Target users include:
-
-- elderly users
-
-- users with low digital literacy
-
-- frightened or stressed users
-
-- people using older phones
-
-- users who may operate the phone one-handed
-
-Therefore:
-
-- extremely clear hierarchy
-
-- large touch targets
-
-- large readable text
-
-- large icons
-
-- minimal text
-
-- no complicated menus
-
-- no tiny controls
-
-- no excessive animation
-
-- no visual clutter
-
-Never communicate an important state through color alone.
-
-Use:
-
-ICON + TEXT + COLOR.
-
-==================================================
-
-VISUAL IDENTITY
-
-==================================================
-
-Create a professional emergency-response visual identity.
-
-Primary:
-
-Deep navy / dark blue
-
-Safe:
-
-Green
-
-Emergency:
-
-Red
-
-Warning / offline:
-
-Amber
-
-Background:
-
-Very light gray / off-white
-
-Cards:
-
-White with subtle borders/shadows
-
-Use rounded corners but do not make the application look playful.
-
-The product should feel:
-
-- trustworthy
-
-- serious
-
-- modern
-
-- calm
-
-- accessible
-
-Avoid:
-
-- gradients everywhere
-
-- glassmorphism
-
-- cyberpunk styling
-
-- unnecessary animations
-
-- generic SaaS appearance
-
-- cartoon emergency graphics
-
-==================================================
-
-APP SHELL
-
-==================================================
-
-Create a reusable mobile application shell.
-
-Top header:
-
-ResQ
-
-Under or beside it:
-
-small network status indicator.
-
-Possible states:
-
-ONLINE
-
-OFFLINE
-
-When online:
-
-green indicator
-
-“Connected”
-
-When offline:
-
-amber/red offline icon
-
-“Offline Resilience Mode”
-
-At the bottom create a mobile navigation bar with:
-
-HOME
-
-FAMILY
-
-SHELTERS
-
-GUIDE
-
-MORE
-
-For Phase 1:
-
-HOME is active.
-
-The other tabs should exist visually because they establish the final product navigation.
-
-If selected during Phase 1, they should NOT open broken or empty pages.
-
-Instead display a clean temporary informational panel:
-
-“Coming in the next build phase.”
-
-and provide a clear button:
-
-BACK TO HOME
-
-Do not create fake unfinished content.
-
-==================================================
-
-CITIZEN HOME SCREEN
-
-==================================================
-
-The default screen must be the Citizen Home screen.
-
-At the top of the content:
-
-A prominent banner:
-
-⚠ DISASTER MODE ACTIVE
-
-Below it show network state.
-
-When ONLINE:
-
-CONNECTED
-
-Emergency services can synchronize normally.
-
-When OFFLINE:
-
-OFFLINE RESILIENCE MODE
-
-Large supporting text:
-
-“ResQ is still working.”
-
-And smaller text:
-
-“Critical actions and information remain available on this device.”
-
-The offline state must feel reassuring and deliberate, NOT like an application error.
-
-==================================================
-
-PRIMARY EMERGENCY ACTIONS
-
-==================================================
-
-Create THREE very large stacked buttons.
-
-1.
-
-GREEN
-
-check-circle icon
-
-I’M SAFE
-
-2.
-
-RED
-
-SOS / alert icon
-
-I NEED HELP
-
-3.
-
-NEUTRAL / AMBER
-
-message / status icon
-
-CAN’T RESPOND
-
-These should dominate the page.
-
-They must be easy to hit with one hand.
-
-==================================================
-
-I’M SAFE — IMPLEMENT THIS NOW
-
-==================================================
-
-The I’M SAFE button must already be functional in Phase 1.
-
-When pressed:
-
-change the user's local safety status to SAFE.
-
-Show a confirmation panel:
-
-✓ YOU ARE MARKED SAFE
-
-Include:
-
-Status:
-
-SAFE
-
-Last updated:
-
-current local time
-
-Storage:
-
-Saved on this device
-
-If OFFLINE also display:
-
-“Your status is stored locally and will synchronize when connectivity becomes available.”
-
-Persist this information using localStorage.
-
-If the page is refreshed, the SAFE status must remain.
-
-The home screen should then show a small persistent status card:
-
-YOUR STATUS
-
-✓ SAFE
-
-Updated:
-
-[time]
-
-Include:
-
-UPDATE STATUS
-
-This can reopen the status choice.
-
-==================================================
-
-I NEED HELP — PHASE 1 BEHAVIOUR
-
-==================================================
-
-Do NOT build the actual SOS form yet.
-
-When I NEED HELP is pressed, open a clean modal or panel saying:
-
-I NEED HELP
-
-“Emergency reporting will open here.”
-
-Below:
-
-“Phase 2 will add offline SOS creation, location, people count, medical needs and delivery status.”
-
-Button:
-
-RETURN HOME
-
-This is temporary and must look deliberate rather than broken.
-
-Do NOT fabricate a working SOS system yet.
-
-==================================================
-
-CAN’T RESPOND — PHASE 1 BEHAVIOUR
-
-==================================================
-
-When pressed:
-
-display:
-
-CAN’T RESPOND STATUS
-
-“ResQ can preserve your last known status when you cannot provide a full update.”
-
-For now provide:
-
-SAVE STATUS
-
-When clicked:
-
-store locally:
-
-status = CANNOT_RESPOND
-
-timestamp = current local time
-
-Then show:
-
-STATUS STORED ON DEVICE
-
-Persist using localStorage.
-
-==================================================
-
-SECONDARY ACTIONS
-
-==================================================
-
-Below the three main emergency controls create a clean 2 × 2 grid.
-
-Cards:
-
-🏠
-
-FIND SHELTER
-
-🧭
-
-GUIDE ME
-
-👨‍👩‍👧
-
-FAMILY
-
-🤝
-
-HELP NEARBY
-
-These are navigation previews only during Phase 1.
-
-When tapped, show a clean message indicating that the feature belongs to a later build phase.
-
-Do NOT generate those systems yet.
-
-==================================================
-
-OFFLINE INFORMATION CARD
-
-==================================================
-
-At the bottom of the home screen create a subtle information card.
-
-When ONLINE:
-
-“ResQ is connected.”
-
-When OFFLINE:
-
-📵 OFFLINE-FIRST
-
-“Emergency information remains stored on this device.”
-
-“Actions will be queued until a delivery path becomes available.”
-
-Do not imply that Bluetooth relay is already implemented.
-
-==================================================
-
-DEMO CONTROL
-
-==================================================
-
-We need one extremely simple developer/demo control for testing.
-
-Place a small unobtrusive button in the header or More area:
-
-DEMO
-
-When opened, show:
-
-NETWORK SIMULATION
-
-ONLINE
-
-OFFLINE
-
-Use a segmented toggle.
-
-Changing it must instantly change the global network state.
-
-Persist the selected network state in localStorage.
-
-If I switch to OFFLINE and refresh the browser, the application must still show OFFLINE.
-
-Also include:
-
-RESET LOCAL DEMO DATA
-
-When pressed, request confirmation.
-
-If confirmed:
-
-clear ResQ localStorage data
-
-restore network = ONLINE
-
-restore user status = UNKNOWN
-
-Return to Home.
-
-==================================================
-
-APPLICATION STATE
-
-==================================================
-
-Use clean centralized state where practical.
-
-For Phase 1 maintain:
-
-networkStatus:
-
-ONLINE | OFFLINE
-
-disasterMode:
-
-true
-
-userStatus:
-
-UNKNOWN | SAFE | CANNOT_RESPOND
-
-statusUpdatedAt:
-
-timestamp or null
-
-Persist the important values in localStorage.
-
-Use a clear ResQ-specific key namespace so unrelated browser storage is not deleted.
-
-Example:
-
-resq_network_status
-
-resq_user_status
-
-resq_status_updated_at
-
-==================================================
-
-RESPONSIVENESS
-
-==================================================
-
-Test layout conceptually at:
-
-360px width
-
-390px width
-
-430px width
-
-desktop
-
-There must be:
-
-- no horizontal scrolling
-
-- no clipped text
-
-- no overlapping buttons
-
-- no tiny controls
-
-- no strange excessive whitespace
-
-On desktop:
-
-center the citizen interface in a sensible application-width container instead of stretching emergency buttons across the entire monitor.
-
-==================================================
-
-ACCESSIBILITY
-
-==================================================
-
-Use semantic buttons.
-
-Add aria-labels where appropriate.
-
-Provide visible keyboard focus.
-
-Ensure strong contrast.
-
-Use meaningful icons.
-
-Emergency labels must remain text-based even when icons are present.
-
-Do not rely on red/green alone.
-
-==================================================
-
-PHASE 1 ACCEPTANCE REQUIREMENTS
-
-==================================================
-
-Before considering Phase 1 complete, verify that:
-
-1. App loads without errors.
-
-2. Citizen Home is the default screen.
-
-3. Mobile design is polished.
-
-4. Disaster Mode banner is visible.
-
-5. ONLINE/OFFLINE demo toggle works.
-
-6. Network state survives refresh.
-
-7. OFFLINE mode clearly says “ResQ is still working.”
-
-8. I’M SAFE works.
-
-9. SAFE status survives refresh.
-
-10. CAN’T RESPOND status works and survives refresh.
-
-11. I NEED HELP does not crash and opens its temporary Phase 2 panel.
-
-12. Secondary feature cards do not lead to empty/broken pages.
-
-13. Bottom navigation works safely.
-
-14. Reset Demo Data works.
-
-15. There are no external API/backend requirements.
-
-16. There are no console-breaking errors.
-
-17. There is no horizontal overflow on mobile.
-
-18. No advanced feature from later phases has been unnecessarily implemented.
-
-==================================================
-
-IMPORTANT
-
-==================================================
-
-Do not attempt to impress me by building later features.
-
-A clean and flawless Phase 1 is more important than building more.
-
-Do not refactor unrelated project configuration.
-
-Do not introduce backend architecture.
-
-Do not ask questions.
-
-Implement Phase 1 now and stop after Phase 1 is complete.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/71dccfd9-2c25-4a20-8311-f2f2322f171a).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+Bash
 npm run dev
-```
+Build for production:
+
+Bash
+npm run build
+📁 Repository Structure
+Plaintext
+sahara/
+├── public/
+│   ├── audio/           # Multilingual emergency voice guides (hi/en)
+│   ├── maps/            # Pre-cached OpenStreetMap extracts (.osm)
+│   └── sw.js            # Service worker for offline asset caching
+├── src/
+│   ├── components/
+│   │   ├── resq/        # Core disaster workflows (SOS, Shelters, Map, Guides)
+│   │   └── ui/          # Accessible UI primitives & layout components
+│   ├── hooks/           # Custom hooks (speech synthesis, responsive layout)
+│   ├── lib/             # Routing engines, offline storage stores & utilities
+│   ├── routes/          # File-based TanStack route definitions
+│   └── styles.css       # Global styling & Tailwind directives
+└── vite.config.ts       # Build configuration
+
+
+👥 Contributors
+Aaditya Dobhal (@aadityaDobhal) — Core architecture, offline routing integration, and emergency UI workflows.
+Ansh — Frontend development, disaster workflows, and component design.
+
+Faiz — Shelter features, navigation mapping, and UI implementation.
+
+Sanskar — PWA configuration, offline emergency guides, and testing.
+node -v
+npm -v
